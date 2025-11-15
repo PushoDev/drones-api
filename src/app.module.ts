@@ -8,6 +8,7 @@ import { Medication } from './medications/entities/medication.entity';
 import { Audit } from './audit/entities/audit.entity';
 import { DronesModule } from './drones/drones.module';
 import { MedicationsModule } from './medications/medications.module';
+import { DroneMedicationsModule } from './drone-medications/drone-medications.module';
 import { AuditModule } from './audit/audit.module';
 import { CronModule } from './cron/cron.module';
 
@@ -28,6 +29,7 @@ import { CronModule } from './cron/cron.module';
     }),
     DronesModule,
     MedicationsModule,
+    DroneMedicationsModule,
     AuditModule,
     CronModule,
   ],
