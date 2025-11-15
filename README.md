@@ -1,98 +1,162 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Drones API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS Logo](https://nestjs.com/img/logo-small.svg)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Descripción del Proyecto
 
-## Description
+Esta API de Drones es una solución backend construida con NestJS que permite la gestión de drones y la entrega de medicamentos. El sistema está diseñado para manejar el registro de drones, la carga de medicamentos, el monitoreo del estado de la batería y el registro de eventos de auditoría.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Problema a Resolver
 
-## Project setup
+El objetivo principal de esta API es proporcionar una plataforma robusta para la operación de drones en tareas de entrega, asegurando que los drones estén en condiciones óptimas para sus misiones y que la carga se realice de manera eficiente y segura. Aborda la necesidad de:
 
-```bash
-$ npm install
-```
+- **Registro y Gestión de Drones:** Mantener un inventario de drones con sus especificaciones (número de serie, modelo, límite de peso, capacidad de batería y estado).
+- **Gestión de Medicamentos:** Administrar los medicamentos que serán transportados, incluyendo su nombre, peso, código y una imagen.
+- **Carga de Drones:** Permitir la asignación de medicamentos a drones, validando el límite de peso y el estado de la batería del dron.
+- **Monitoreo de Batería:** Realizar un seguimiento periódico del nivel de batería de los drones y registrar esta información para auditoría.
+- **Auditoría de Eventos:** Mantener un registro de los eventos importantes relacionados con los drones, como los cambios en el nivel de batería.
 
-## Compile and run the project
+## Características Principales
 
-```bash
-# development
-$ npm run start
+- **Gestión de Drones:**
+  - Registro de nuevos drones.
+  - Consulta de todos los drones registrados.
+  - Consulta de un dron específico por ID.
+  - Consulta de drones disponibles para carga (estado `IDLE` y batería > 25%).
+  - Verificación del nivel de batería de un dron específico.
+  - Carga de medicamentos en un dron, con validaciones de peso y batería.
+- **Gestión de Medicamentos:**
+  - Registro de nuevos medicamentos.
+  - Consulta de todos los medicamentos registrados.
+  - Consulta de un medicamento específico por ID.
+- **Sistema de Auditoría:**
+  - Registro automático del nivel de batería de los drones cada minuto.
+- **Validaciones de Negocio:**
+  - Un dron no puede ser cargado si su batería es inferior al 25%.
+  - El peso total de los medicamentos no puede exceder el límite de peso del dron.
+  - Un dron solo puede ser cargado si está en estado `IDLE`.
 
-# watch mode
-$ npm run start:dev
+## Tecnologías Utilizadas
 
-# production mode
-$ npm run start:prod
-```
+- **Backend:** [NestJS](https://nestjs.com/) (Framework de Node.js)
+- **Base de Datos:** [PostgreSQL](https://www.postgresql.org/)
+- **ORM:** [TypeORM](https://typeorm.io/)
+- **Contenedores:** [Docker](https://www.docker.com/) y [Docker Compose](https://docs.docker.com/compose/)
+- **Validación:** `class-validator` y `class-transformer`
+- **Tareas Programadas:** `@nestjs/schedule`
+- **Variables de Entorno:** `@nestjs/config`
+- **Herramientas de Desarrollo:** `ESLint`, `Prettier`, `Jest`
 
-## Run tests
+## Configuración del Proyecto
 
-```bash
-# unit tests
-$ npm run test
+### Requisitos Previos
 
-# e2e tests
-$ npm run test:e2e
+Asegúrate de tener instalado lo siguiente:
 
-# test coverage
-$ npm run test:cov
-```
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Deployment
+### Instalación
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1.  Clona el repositorio:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    cd drones-api
+    ```
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+2.  Instala las dependencias de Node.js:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+    ```bash
+    npm install
+    ```
 
-## Resources
+3.  Configura las variables de entorno. Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido (puedes ajustar los valores):
 
-Check out a few resources that may come in handy when working with NestJS:
+    ```env
+    DB_HOST=localhost
+    DB_PORT=5433
+    DB_USER=admin
+    DB_PASSWORD=admin
+    DB_NAME=drones
+    ```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+4.  Inicia los contenedores de Docker para la base de datos PostgreSQL y Adminer:
 
-## Support
+    ```bash
+    docker-compose up -d
+    ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    - PostgreSQL estará disponible en `localhost:5433`.
+    - Adminer (interfaz de gestión de base de datos) estará disponible en `localhost:8080`.
 
-## Stay in touch
+### Ejecución de la Aplicación
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Modo Desarrollo (con `watch`):**
 
-## License
+  ```bash
+  npm run start:dev
+  ```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- **Modo Producción:**
+
+  ```bash
+  npm run start:prod
+  ```
+
+La aplicación se ejecutará en `http://localhost:3000` (o el puerto configurado en `main.ts`).
+
+## Endpoints de la API
+
+### Drones
+
+- `POST /drones`
+  - **Descripción:** Registra un nuevo dron.
+  - **Body:** `CreateDroneDto`
+- `GET /drones`
+  - **Descripción:** Obtiene todos los drones registrados.
+- `GET /drones/available`
+  - **Descripción:** Obtiene los drones disponibles para carga (estado IDLE y batería > 25%).
+- `GET /drones/:id`
+  - **Descripción:** Obtiene un dron específico por su ID.
+- `GET /drones/:id/battery`
+  - **Descripción:** Obtiene el nivel de batería de un dron específico.
+- `POST /drones/:id/load`
+  - **Descripción:** Carga un dron con medicamentos.
+  - **Body:** `LoadDroneDto`
+
+### Medicamentos
+
+- `POST /medications`
+  - **Descripción:** Registra un nuevo medicamento.
+  - **Body:** `CreateMedicationDto`
+- `GET /medications`
+  - **Descripción:** Obtiene todos los medicamentos registrados.
+- `GET /medications/:id`
+  - **Descripción:** Obtiene un medicamento específico por su ID.
+
+## Pruebas
+
+- **Ejecutar pruebas unitarias:**
+
+  ```bash
+  npm run test
+  ```
+
+- **Ejecutar pruebas e2e:**
+
+  ```bash
+  npm run test:e2e
+  ```
+
+- **Generar reporte de cobertura:**
+
+  ```bash
+  npm run test:cov
+  ```
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT.
