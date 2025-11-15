@@ -1,22 +1,22 @@
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-
-@Entity()
+@Entity({ name: 'audit' })
 export class Audit {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  droneId: number;
+  @Column({ type: 'varchar', length: 255 })
+  action: string;
 
-  @Column()
-  batteryLevel: number;
+  @Column({ type: 'text', nullable: true })
+  details: string;
 
-  @CreateDateColumn()
-  timestamp: Date;
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  entity: string;
+
+  @Column({ type: 'int', nullable: true })
+  entityId: number;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }

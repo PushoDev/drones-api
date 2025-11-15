@@ -1,11 +1,5 @@
-
 import { Medication } from 'src/medications/entities/medication.entity';
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export enum DroneModel {
   Lightweight = 'Lightweight',
@@ -23,12 +17,12 @@ export enum DroneState {
   RETURNING = 'RETURNING',
 }
 
-@Entity()
+@Entity({ name: 'drones' })
 export class Drone {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100, unique: true })
+  @Column({ name: 'serial_number', length: 100, unique: true })
   serialNumber: string;
 
   @Column({
@@ -37,12 +31,6 @@ export class Drone {
   })
   model: DroneModel;
 
-  @Column()
-  weightLimit: number;
-
-  @Column()
-  batteryCapacity: number;
-
   @Column({
     type: 'enum',
     enum: DroneState,
@@ -50,6 +38,20 @@ export class Drone {
   })
   state: DroneState;
 
-  @OneToMany(() => Medication, (medication) => medication.drone)
+  @Column({
+    name: 'battery_level',
+    type: 'integer',
+    default: 100,
+    comment: 'Battery level percentage (0-100)'
+  })
+  batteryLevel: number;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @ManyToMany(() => Medication, (medication) => medication.drones)
   medications: Medication[];
 }

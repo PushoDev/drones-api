@@ -19,6 +19,8 @@ lerna-debug.log*
 .env.test
 .env.production
 gemini.md
+qwen.md
+.gitignore
 
 # temp directory
 .temp
